@@ -16,7 +16,7 @@ const Footer = () => {
            {
             footerLinks.map((item)=>(
               <div key={item.title} className='footer__link'>
-                <h3 className='font-bold'>
+                <div className='font-bold text-3xl'>
                   {item.title}
                   <h3 className='flex flex-col flex-wrap'>
                     {
@@ -27,7 +27,7 @@ const Footer = () => {
                       ))
                     }
                   </h3>
-                </h3>
+                </div>
               </div>
             ))
            }

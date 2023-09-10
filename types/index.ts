@@ -6,3 +6,12 @@ export interface CustomeBottomProbs {
     handleClick?: MouseEventHandler<HTMLButtonElement>;
 
 }
+export interface CustomeFilterProbs {
+    title : string;
+
+}
+export interface SearchManuFacturedProbs {
+    manuFacturer : string;
+    setmanuFacturer : (manuFacturer:string)=> void;
+
+}
