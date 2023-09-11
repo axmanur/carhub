@@ -5,6 +5,7 @@ import {Combobox, Transition, } from '@headlessui/react'
 import Image from 'next/image'
 import { useState, Fragment } from 'react'
 import { manufacturers } from '@/constants'
+import { CheckIcon } from '@heroicons/react/20/solid'
 const SearchManuFactured = ({manuFacturer,setmanuFacturer}:SearchManuFacturedProbs) => {
   
     const [quer, setQuer] = useState('');
@@ -21,6 +22,7 @@ const SearchManuFactured = ({manuFacturer,setmanuFacturer}:SearchManuFacturedPro
         )
     );
     
+   
     return (
     <div className='search-manufacturer'>
         <Combobox  >
@@ -36,31 +38,54 @@ const SearchManuFactured = ({manuFacturer,setmanuFacturer}:SearchManuFacturedPro
                     onChange={(e)=>{setQuer(e.target.value)}}
                 />
 
-                <Transition as={Fragment} 
-                    leave='transition ease-in duration-100 '
-                    leaveFrom='opacity-100'
-                    leaveTo='opacity-0'
-                    afterLeave={()=>setQuer('')}
-                >
-                    <Combobox.Options  >
-                        {
-                            
-                            (
-                                FilteredManuFacturers.map((item)=>(
-                                    <Combobox.Option key={item} value={quer} className={({active})=> `relative seach-amnufacturer__option ${active ? 'bg-primary-blue text-white' :'text-gray-900'}`}>
-                                        {({ active, selected }) => {
-                                            return (
-                                                <Combobox.Option as="span" key={item} value={item}>
-                                                    {item}
-                                              </Combobox.Option>
-                                            )
-                                        }} 
-                                    </Combobox.Option>
-                                ))
-                            )
-                        }
-                    </Combobox.Options >
-                </Transition>
+<Transition
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            afterLeave={() => setQuer('')}
+          >
+            <Combobox.Options className="m-6">
+              {FilteredManuFacturers.length === 0 && quer !== '' ? (
+                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                  Nothing found.
+                </div>
+              ) : (
+                FilteredManuFacturers.map((item) => (
+                  <Combobox.Option
+                    key={item}
+                    className={({ active }) =>
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        active ? 'bg-primary-blue rounded-lg text-white' : 'text-gray-900'
+                      }`
+                    }
+                    value={item}
+                  >
+                    {({ selected, active }) => (
+                      <>
+                        <span
+                          className={`block truncate ${
+                            selected ? 'font-medium' : 'font-normal'
+                          }`}
+                        >
+                          {item}
+                        </span>
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? 'text-white' : 'text-teal-600'
+                            }`}
+                          >
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+                  </Combobox.Option>
+                ))
+              )}
+            </Combobox.Options>
+          </Transition>
             </div>
         </Combobox>
         
